@@ -16,7 +16,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
+    
     Route::get('/books', [BookController::class, 'index'])->name('book');
 });
 
@@ -28,6 +28,8 @@ Route::group(['middleware' => ['role:pustakawan']], function () {
     Route::delete('/book/{id}/destroy', [BookController::class, 'destroy'])->name('book.destroy');
     Route::get('/book/print', [BookController::class, 'print'])->name('book.print');
     Route::get('/book/export', [BookController::class, 'export'])->name('book.export');
+
+    Route::get('/books/search', [BookController::class, 'search'])->name('book.search');
 
 });
 

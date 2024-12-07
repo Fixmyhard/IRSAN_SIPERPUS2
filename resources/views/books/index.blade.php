@@ -10,6 +10,23 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
 
+                     <!-- Form Pencarian -->
+                     <form action="{{ route('book.search') }}" method="GET" class="mb-6">
+                        <div class="flex items-center">
+                            <input 
+                                type="text" 
+                                name="query" 
+                                value="{{ old('query', $query) }}" 
+                                class="px-4 py-2 border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-100" 
+                                placeholder="Cari berdasarkan judul atau penulis..."
+                            >
+                            <button type="submit" class="ml-2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+                                Cari
+                            </button>
+                        </div>
+                    </form>
+                    <!-- Akhir Form Pencarian -->
+
                     <x-primary-button tag="a" href="{{ route('book.create') }}">Tambah Data Buku</x-primary-button>
                     <x-primary-button tag="a" href="{{ route('book.print') }}">Print Data Buku</x-primary-button>
                     <x-primary-button tag="a" href="{{ route('book.export') }}">Export Data Buku</x-primary-button>

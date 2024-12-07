@@ -13,20 +13,23 @@ use Maatwebsite\Excel\Facades\Excel;
 class BookController extends Controller
 {
     public function index(Request $request)
-    {
-        // Ambil parameter pencarian jika ada
+{
+    // Ambil parameter pencarian jika ada
     $query = $request->input('query', '');
 
-    // Ambil data buku dengan pencarian jika ada
-    $books = Book::where('title', 'like', "%{$query}%")
-                 ->orWhere('author', 'like', "%{$query}%")
-                 ->get();
+    // Ambil data buku, dengan pagination 10 per halaman
+    $books = Book::when($query, function ($queryBuilder) use ($query) {
+        return $queryBuilder->where('title', 'like', '%' . $query . '%')
+                             ->orWhere('author', 'like', '%' . $query . '%');
+    })->paginate(10);  // Pastikan menggunakan paginate(10)
 
     // Kirim data buku dan query ke view
     return view('books.index', compact('books', 'query'));
-        $data['books'] = Book::all();
-        return view('books.index', $data);
-    }
+}
+
+    
+
+
     public function create()
     {
         $data['bookshelves'] = Bookshelf::pluck('name', 'id');
@@ -151,14 +154,15 @@ class BookController extends Controller
     if ($query) {
         $books = Book::where('title', 'like', "%{$query}%")
                      ->orWhere('author', 'like', "%{$query}%")
-                     ->get();
+                     ->paginate(10);  // Gunakan paginate di sini
     } else {
-        // Jika tidak ada query, ambil semua buku
-        $books = Book::all();
+        // Jika tidak ada query, ambil semua buku dengan pagination
+        $books = Book::paginate(10);  // Gunakan paginate di sini juga
     }
 
     // Kirim data buku dan query ke view
     return view('books.index', compact('books', 'query'));
 }
+
 
 }

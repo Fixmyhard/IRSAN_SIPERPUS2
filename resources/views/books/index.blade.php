@@ -17,7 +17,7 @@
                     <x-primary-button tag="a" href="{{ route('book.create') }}">Tambah Data Buku</x-primary-button>
                     <x-primary-button tag="a" href="{{ route('book.print') }}">Print Data Buku</x-primary-button>
                     <x-primary-button tag="a" href="{{ route('book.export') }}">Export Data Buku</x-primary-button>
-
+                    
                     <x-table>
                         <x-slot name="header">
                             <tr class="py-10">
@@ -32,6 +32,7 @@
                                 <th scope="col">Aksi</th>
                             </tr>
                         </x-slot>
+                    
                         @foreach ($books as $book)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
@@ -45,15 +46,20 @@
                                 </td>
                                 <td>{{ $book->bookshelf->code }}-{{ $book->bookshelf->name }}</td>
                                 <td>
-                                    <x-primary-button tag="a"
-                                        href="{{ route('book.edit', $book->id) }}">Edit</x-primary-button>
+                                    <x-primary-button tag="a" href="{{ route('book.edit', $book->id) }}">Edit</x-primary-button>
                                     <x-danger-button x-data=""
                                         x-on:click.prevent="$dispatch('open-modal', 'confirm-book-deletion')"
-                                        x-on:click="$dispatch('set-action', '{{ route('book.destroy', $book->id) }}')">{{ __('Delete') }}</x-danger-button>
+                                        x-on:click="$dispatch('set-action', '{{ route('book.destroy', $book->id) }}')">Hapus</x-danger-button>
                                 </td>
                             </tr>
                         @endforeach
                     </x-table>
+                    
+                    <!-- Pagination Links -->
+                    <div class="mt-4">
+                        {{ $books->links() }}
+                    </div>
+                    
 
                     <x-modal name="confirm-book-deletion" focusable maxWidth="xl">
                         <form method="post" x-bind:action="action" class="p-6">

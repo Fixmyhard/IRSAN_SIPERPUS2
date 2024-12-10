@@ -17,11 +17,11 @@ class BookController extends Controller
     // Ambil parameter pencarian jika ada
     $query = $request->input('query', '');
 
-    // Ambil data buku, dengan pagination 10 per halaman
+    // Ambil data buku, dengan pagination 5 per halaman
     $books = Book::when($query, function ($queryBuilder) use ($query) {
         return $queryBuilder->where('title', 'like', '%' . $query . '%')
                              ->orWhere('author', 'like', '%' . $query . '%');
-    })->paginate(10);  // Pastikan menggunakan paginate(10)
+    })->paginate(5);  // Pastikan menggunakan paginate(5)
 
     // Kirim data buku dan query ke view
     return view('books.index', compact('books', 'query'));
@@ -154,10 +154,10 @@ class BookController extends Controller
     if ($query) {
         $books = Book::where('title', 'like', "%{$query}%")
                      ->orWhere('author', 'like', "%{$query}%")
-                     ->paginate(10);  // Gunakan paginate di sini
+                     ->paginate(5);  // Gunakan paginate di sini
     } else {
         // Jika tidak ada query, ambil semua buku dengan pagination
-        $books = Book::paginate(10);  // Gunakan paginate di sini juga
+        $books = Book::paginate(5);  // Gunakan paginate di sini juga
     }
 
     // Kirim data buku dan query ke view

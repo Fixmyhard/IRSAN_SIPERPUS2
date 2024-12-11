@@ -36,4 +36,14 @@ class Book extends Model
         }
         return $book_filter;
     }
+
+    public function borrowings()
+    {
+        return $this->hasMany(Borrowing::class);
+    }
+    
+    public function isAvailable(): bool
+    {
+        return $this->borrowings()->whereNull('returned_at')->doesntExist();
+    }
 }

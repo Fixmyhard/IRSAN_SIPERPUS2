@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\BorrowingController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -18,6 +19,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     
     Route::get('/books', [BookController::class, 'index'])->name('book');
+
+    // Rute Peminjaman dan Pengembalian
+    Route::resource('borrowings', BorrowingController::class);
+    Route::post('borrowings/{id}/return', [BorrowingController::class, 'returnBook'])->name('borrowings.return');
 });
 
 Route::group(['middleware' => ['role:pustakawan']], function () {
@@ -30,7 +35,6 @@ Route::group(['middleware' => ['role:pustakawan']], function () {
     Route::get('/book/export', [BookController::class, 'export'])->name('book.export');
 
     Route::get('/books/search', [BookController::class, 'search'])->name('book.search');
-
 });
 
 require __DIR__ . '/auth.php';

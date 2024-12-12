@@ -1,89 +1,103 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Perpustakaan Digital</title>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    <title>IRSAN SIPERPUS</title>
 
-        <!-- Styles / Scripts -->
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+
+    <!-- Styles / Scripts -->
+    @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-    </head>
-    <body class="font-sans antialiased dark:bg-gray-900 dark:text-gray-100">
-        <div class="bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-100">
-            <!-- Header -->
-            <div class="relative min-h-screen flex flex-col items-center justify-center selection:bg-blue-500 selection:text-white">
-                <div class="relative w-full max-w-4xl px-6 lg:max-w-7xl">
-                    <header class="grid grid-cols-2 items-center gap-4 py-10 lg:grid-cols-3">
-                        <div class="flex lg:justify-center lg:col-start-2">
-                            <h1 class="text-2xl font-bold text-gray-900 dark:text-white">
-                                Selamat Datang di Perpustakaan Digital
-                            </h1>
-                        </div>
-                        @if (Route::has('login'))
-                            <nav class="-mx-3 flex flex-1 justify-end">
-                                @auth
-                                    <a
-                                        href="{{ url('/dashboard') }}"
-                                        class="rounded-md px-3 py-2 text-gray-900 ring-1 ring-transparent transition hover:text-blue-600 focus:outline-none focus-visible:ring-blue-500 dark:text-white"
-                                    >
-                                        Dashboard
-                                    </a>
-                                @else
-                                    <a
-                                        href="{{ route('login') }}"
-                                        class="rounded-md px-3 py-2 text-gray-900 ring-1 ring-transparent transition hover:text-blue-600 focus:outline-none focus-visible:ring-blue-500 dark:text-white"
-                                    >
-                                        Log in
-                                    </a>
+    @endif
 
-                                    @if (Route::has('register'))
-                                        <a
-                                            href="{{ route('register') }}"
-                                            class="rounded-md px-3 py-2 text-gray-900 ring-1 ring-transparent transition hover:text-blue-600 focus:outline-none focus-visible:ring-blue-500 dark:text-white"
-                                        >
-                                            Register
-                                        </a>
-                                    @endif
-                                @endauth
-                            </nav>
-                        @endif
-                    </header>
+    <style>
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
 
-                    <!-- Main Content -->
-                    <main class="mt-6">
-                        <div class="grid gap-6 lg:grid-cols-2 lg:gap-8">
-                            <a
-                                href="{{ url('/books') }}"
-                                class="flex flex-col items-start gap-6 overflow-hidden rounded-lg bg-white p-6 shadow-lg ring-1 ring-gray-200 transition duration-300 hover:ring-gray-400 focus:outline-none focus-visible:ring-blue-500 dark:bg-gray-800"
-                            >
-                                <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Daftar Buku</h2>
-                                <p class="text-sm text-gray-700 dark:text-gray-300">
-                                    Lihat koleksi buku yang tersedia di perpustakaan.
-                                </p>
-                            </a>
+        @keyframes slideInBottom {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-                            <a
-                                href="{{ url('/borrowings') }}"
-                                class="flex flex-col items-start gap-6 overflow-hidden rounded-lg bg-white p-6 shadow-lg ring-1 ring-gray-200 transition duration-300 hover:ring-gray-400 focus:outline-none focus-visible:ring-blue-500 dark:bg-gray-800"
-                            >
-                                <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Riwayat Peminjaman</h2>
-                                <p class="text-sm text-gray-700 dark:text-gray-300">
-                                    Lihat daftar buku yang sedang Anda pinjam.
-                                </p>
-                            </a>
-                        </div>
-                    </main>
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
 
-                    <!-- Footer -->
-                    <footer class="py-16 text-center text-sm text-gray-600 dark:text-gray-400">
-                        © 2024 Perpustakaan Digital. Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
-                    </footer>
-                </div>
-            </div>
+        .slide-in-left {
+            animation: slideInLeft 1.5s ease-out;
+        }
+
+        .slide-in-bottom {
+            animation: slideInBottom 1.5s ease-out;
+            animation-delay: 0.5s;
+            animation-fill-mode: backwards;
+        }
+
+        .slide-in-right {
+            animation: slideInRight 1.5s ease-out;
+            animation-delay: 1s;
+            animation-fill-mode: backwards;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased dark:bg-gray-900 dark:text-white">
+    <div class="bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-100 min-h-screen flex flex-col items-center justify-center">
+        <!-- Header -->
+        <header class="mb-10 text-center">
+            <h1 class="text-5xl font-bold">
+                <span class="block slide-in-left">Welcome to</span>
+                <span class="block slide-in-bottom">IRSAN</span>
+                <span class="block slide-in-right">SIPERPUS</span>
+            </h1>
+            <p class="mt-4 text-lg text-gray-600 dark:text-gray-400">Sistem Informasi Perpustakaan</p>
+        </header>
+
+        <!-- Buttons -->
+        <div class="flex space-x-4">
+            @if (Route::has('login'))
+                @auth
+                    <a href="{{ url('/dashboard') }}" class="px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700">
+                        Dashboard
+                    </a>
+                @else
+                    <a href="{{ route('login') }}" class="px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700">
+                        Login
+                    </a>
+
+                    @if (Route::has('register'))
+                        <a href="{{ route('register') }}" class="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg shadow hover:bg-gray-400">
+                            Register
+                        </a>
+                    @endif
+                @endauth
+            @endif
         </div>
-    </body>
+    </div>
+</body>
 </html>

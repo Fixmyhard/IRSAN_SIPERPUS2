@@ -25,8 +25,8 @@ Route::middleware('auth')->group(function () {
 
 
     // Rute Peminjaman dan Pengembalian
-    Route::resource('borrowings', BorrowingController::class);
-    Route::post('borrowings/{id}/return', [BorrowingController::class, 'returnBook'])->name('borrowings.return');
+    // Route::resource('borrowings', BorrowingController::class);
+    // Route::post('borrowings/{id}/return', [BorrowingController::class, 'returnBook'])->name('borrowings.return');
 });
 
 Route::group(['middleware' => ['role:pustakawan']], function () {
@@ -39,6 +39,11 @@ Route::group(['middleware' => ['role:pustakawan']], function () {
     Route::get('/book/export', [BookController::class, 'export'])->name('book.export');
 
     // Route::get('/books/search', [BookController::class, 'search'])->name('book.search');
+});
+
+Route::group(['middleware' => ['role:mahasiswa']], function () {
+    Route::resource('borrowings', BorrowingController::class);
+    Route::post('borrowings/{id}/return', [BorrowingController::class, 'returnBook'])->name('borrowings.return');
 });
 
 require __DIR__ . '/auth.php';

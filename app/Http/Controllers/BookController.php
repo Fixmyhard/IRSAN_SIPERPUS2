@@ -21,7 +21,7 @@ class BookController extends Controller
     $books = Book::when($query, function ($queryBuilder) use ($query) {
         return $queryBuilder->where('title', 'like', '%' . $query . '%')
                              ->orWhere('author', 'like', '%' . $query . '%');
-    })->paginate(5);  // Pastikan menggunakan paginate(5)
+    })->paginate(5);  
 
     // Kirim data buku dan query ke view
     return view('books.index', compact('books', 'query'));

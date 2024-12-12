@@ -25,7 +25,7 @@
         <header class="mb-10 text-center">
             <h1 class="text-5xl font-sans">
                 <span class="block slide-in-left">Welcome to</span>
-                <span class="block slide-in-bottom text-9xl">IRSAN</span>
+                <span class="block slide-in-bottom text-7xl">IRSAN</span>
                 <span class="block slide-in-right">SIPERPUS</span>
             </h1>
             <p class="mt-4 text-lg text-gray-600 dark:text-gray-400">Sistem Informasi Perpustakaan</p>
@@ -39,10 +39,15 @@
                         Dashboard
                     </a>
                 @else
+
+                <span class="block slide-in-left">
                     <a href="{{ route('login') }}" class="px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700">
                         Login
                     </a>
+                </span>
+                    
 
+                <span class="block slide-in-right">
                     @if (Route::has('register'))
                         <a href="{{ route('register') }}" class="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg shadow hover:bg-gray-400">
                             Register
@@ -50,6 +55,8 @@
                     @endif
                 @endauth
             @endif
+                </span>
+                    
         </div>
     </div>
 </body>

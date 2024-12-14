@@ -10,10 +10,6 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-    {{-- code untuk ngelink ke animasi --}}
-    @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
-    @vite(['resources/css/app.css', 'resources/css/animations.css', 'resources/js/app.js'])
-@endif
 
 
 
@@ -21,15 +17,7 @@
 </head>
 <body class="font-sans antialiased dark:bg-gray-900 dark:text-white">
     <div class="bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-100 min-h-screen flex flex-col items-center justify-center">
-        <!-- Header -->
-        <header class="mb-10 text-center">
-            <h1 class="text-5xl font-sans">
-                <span class="block slide-in-left">Welcome to</span>
-                <span class="block slide-in-bottom text-7xl">IRSAN</span>
-                <span class="block slide-in-right">SIPERPUS</span>
-            </h1>
-            <p class="mt-4 text-lg text-gray-600 dark:text-gray-400">Sistem Informasi Perpustakaan</p>
-        </header>
+
 
         <!-- Buttons -->
         <div class="flex space-x-4">
